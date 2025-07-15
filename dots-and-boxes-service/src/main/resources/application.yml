@@ -1,0 +1,64 @@
+spring:
+  kafka:
+    bootstrap-server: localhost:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: dotsandboxes.utils.GameRecordDeserializer
+      properties:
+        spring.json.trusted.packages: "*, tictactoe.dto, tictactoe.dto.*"
+        default.deserialization.exception.handler: org.apache.kafka.streams.errors.LogAndContinueExceptionHandler
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: dotsandboxes.utils.GameRecordSerializer
+      properties:
+        spring.kafka.producer.properties.spring.json.type.mapping: gameRecord:dotsandboxes.dto.GameRecord,gameRecord:aggregation.dto.GameRecord
+  jpa:
+    generate-ddl: 'true'
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        #dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'TRUE'
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: dots-and-boxes-service
+  flyway:
+    baseline-on-migrate: 'true'
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml
+    enabled: true
+  datasource:
+#        url: jdbc:mysql://localhost:3306/social_gaming_platform_dots_and_boxes_service?useSSL=false&createDatabaseIfNotExist=true
+#        password: root
+#        username: root
+    mysql:
+      url: jdbc:mysql://localhost:3306/social_gaming_platform_dots_and_boxes_service?useSSL=false&createDatabaseIfNotExist=true
+      password: root
+      username: root
+    neo4j:
+      url: bolt://localhost:7687
+      username: neo4j
+      password: 123456789
+#    postgres:
+#      #url: jdbc:postgresql://localhost:5432/social_gaming_platform_dots_and_boxes_service?useSSL=false&createDatabaseIfNotExist=true
+#      #username: postgres
+#      #username: root
+
+server:
+  port: '8089'
+
+flyway:
+  locations: filesystem:db/migration
+  url: jdbc:mysql://localhost:3306/mysql
+  user: root
+  schemas: social_gaming_platform_dots_and_boxes_service
+  password: root
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+        enabled: true

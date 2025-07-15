@@ -1,0 +1,47 @@
+spring:
+  eureka:
+    instance:
+      hostname: ${APPLICATION_DOMAIN}
+  kafka:
+   bootstrap-server: localhost:9092
+  jpa:
+    generate-ddl: 'true'
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        #dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'TRUE'
+    hibernate:
+      ddl-auto: validate
+  application:
+    name: user-service
+  flyway:
+    baseline-on-migrate: 'true'
+  datasource:
+    password: root
+    username: root
+    #username: postgres
+    url: jdbc:mysql://localhost:3306/social_gaming_platform_user_service?useSSL=false&createDatabaseIfNotExist=true
+    #url: jdbc:postgresql://localhost:5432/social_gaming_platform_user_service?useSSL=false&createDatabaseIfNotExist=true
+
+server:
+  port: '8081'
+
+#flyway:
+#  locations: filesystem:db/migration
+#  url: jdbc:mysql://localhost:3306/mysql
+#  user: root
+#  schemas: social_gaming_platofrm_user_service
+#  password: root
+
+eureka:
+    client:
+        service-url:
+              defaultZone: http://localhost:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+
+platform:
+  app:
+    jwtSecret: userServiceSecretKey
+    jwtExpiration: '86400000'

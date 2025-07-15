@@ -1,0 +1,9 @@
+spring:
+  kafka:
+   bootstrap-server: localhost:9092
+  application:
+    name: tictactoe-multiplayer-service
+    
+server:
+  port: '8087'
+

@@ -1,0 +1,9 @@
+spring:
+  kafka:
+   bootstrap-server: localhost:9092
+  application:
+    name: dots-and-boxes-multiplayer-service
+    
+server:
+  port: '8090'
+
